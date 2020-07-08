@@ -1,4 +1,4 @@
-![Design preview for the REST Countries API with color theme switcher coding challenge](./design/desktop-preview.jpg)
+ preview for the REST Countries API with color theme switcher coding challenge.
 
 **To do this challenge, you need a good understanding of JavaScript.**
 
