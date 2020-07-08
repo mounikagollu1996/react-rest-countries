@@ -1,4 +1,4 @@
- preview for the REST Countries API with color theme switcher coding challenge.
+ preview for the REST Countries API with color theme switcher.
 
 **To do this challenge, you need a good understanding of JavaScript.**
 
