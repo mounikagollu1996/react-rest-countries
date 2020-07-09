@@ -40,8 +40,9 @@
 .regionOption {
     background-color: #2B3945 !important;
 }
-.form-inline {
+.form {
     width: 100% !important;
+    display: flex;
     
 }
 .search {
@@ -54,14 +55,24 @@
     border: 1px solid #2B3945 !important;
     color: #ffffff !important
 }
+.search-box {
+    background-color: 'white' !important;
+    width: 30% !important;
+    height: 40px !important;
+    position: absolute;
+    left: 7rem;
+    top: 8rem;
+    color: black !important;
+    border: 1px solid white !important
+}
 .search::placeholder {
     color: #ffffff !important;
     padding-left: 1rem
 }
 .back-button {
-    background-color: #2B3945 !important;
-    border: 1px solid #2B3945 !important;
-    color: #ffffff !important;
+    background-color: #2B3945;
+    border: 1px solid #2B3945;
+    color: #ffffff;
     width: 100px;
     box-shadow: 1px 2px 22px 4px rgba(5, 18, 29,0.75);
     position: absolute;
@@ -75,6 +86,13 @@
 };
 .description > .content > .wrapper > p {
     margin-bottom: 0 !important  
+}
+.boder-name {
+    margin-right: 0.5rem;
+    border: 8px;
+    width: 100px;
+    margin-top: 1rem;
+    box-shadow: 1px 2px 22px 4px rgba(5, 18, 29,0.75)
 }
 
 @media only screen and (max-width: 600px) {

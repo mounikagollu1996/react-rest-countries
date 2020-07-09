@@ -4,6 +4,7 @@ import Display from './Display';
 import CountryDisplay from './countryDisplay';
 import { RegionService } from '../services/RegionService'
 import RegionSelect from './RegionSelect';
+import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 const countryService = new CountryService();
 const regionService = new RegionService();
@@ -14,12 +15,11 @@ class RestCountries extends Component {
         super(props); 
             this.state = { 
                 countries: [],
-                q: '',
-                currentIndex: '',
+                isRegionSelected: false,
+                currentCountry: '',
                 isCountrySelected: false,
                 countryData: [],
-            }; 
-        this.filterList = this.filterList.bind(this);    
+            };     
         this.hanldeOnChange = this.hanldeOnChange.bind(this); 
         this.handleShowDetails = this.handleShowDetails.bind(this);  
         this.handleShowBorderDetails = this.handleShowBorderDetails.bind(this);
@@ -35,7 +35,7 @@ class RestCountries extends Component {
                 return country;
             }
         });
-        this.setState(() => ({countries: countryData}));
+        this.setState(() => ({countries: countryData,isRegionSelected: true}));
     };
 
     getUniqueRegions() {
@@ -66,12 +66,11 @@ class RestCountries extends Component {
 
     handleShowDetails(e) {
         const value = e.currentTarget.getAttribute('value');
-        this.setState({currentIndex: value}, () => {
+        this.setState({currentCountry: value}, () => {
             let countryData = this.state.countryData;
             let countries = countryService.getCountries();
-            countryData = countries.filter((country,index) => {
-                let value = parseInt(this.state.currentIndex);
-                if(value === index){
+            countryData = countries.filter(country => {
+                if(value === country.name){
                    return country;
                 }
             });
@@ -81,18 +80,19 @@ class RestCountries extends Component {
     }
 
     hanldeOnChange(event) {
-        const q = event.target.value.toLowerCase();
-        this.setState({q}, () => this.filterList());
+        const searchText = event.target.value;
+        let countries = countryService.getCountries();
+        let filteredCountries = countries.filter(function(country) {
+            let name = country.name.toLowerCase();
+            if(name.search(searchText) > -1){
+                return country;
+            }
+            // return country.name.search(searchText) > -1;
+        });
+        this.setState(() => ({countries: filteredCountries}));
+        
     }
 
-    filterList() {
-        let countries = this.state.countries;
-        let q = this.state.q;
-        countries = countries.filter(function(country) {
-          return country.name.toLowerCase().indexOf(q) !== -1;
-        });
-        this.setState(() => ({ countries: countries }));
-    }
     loadCountries() {
         this.setState(() => ({countries: countryService.getCountries()}));
     }
@@ -103,13 +103,18 @@ class RestCountries extends Component {
     render() { 
         return ( 
             <div style={{width: '100%'}}>
+                <Router>
                 {this.state.isCountrySelected ?
-                <CountryDisplay country={this.state.countryData}
+                <Route
+                path='/country'
+                component={() => <CountryDisplay country={this.state.countryData}
                 color={this.props.color}
                 countries={this.state.countries}
                 showBorderDetails={this.handleShowBorderDetails}
                 onReset={this.handleOnReset}
-                /> 
+                /> }
+                />
+                    
                 :
                 <div>
                     <RegionSelect
@@ -123,6 +128,7 @@ class RestCountries extends Component {
                     onChange={this.hanldeOnChange}/>
                 </div>    
                 }   
+            </Router>
             </div>    
         );
     }

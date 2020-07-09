@@ -1,9 +1,10 @@
 import React from 'react';
+import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 const CountryDisplay  = (props) => { 
     return(
-        <div className="country-wrapper" style={props.color ? {color: 'white'} : {color: 'black'}}>
-            <button className="back-button" onClick={props.onReset}>back</button>
+        <div className="country-wrapper" style={props.color ? {color: 'white'} : {color: 'black'}}>    
+            <Link to='/'><button className="back-button" onClick={props.onReset} style={props.color ? {} : {color: 'black', backgroundColor: 'white', border: '1px solid white'}}>back</button></Link>
             <div className="row d-flex flex-row flex-wrap m-auto mt-5" style={{width: '70%',justifyContent: 'space-between'}}>
                 <div className="image-box">
                     <img src={props.country[0].flag} style={{width: 'inherit', height: 'inherit'}} alt="country flag"/>
@@ -33,7 +34,7 @@ const CountryDisplay  = (props) => {
                         <span>Border Countries: </span>
                         <div className="d-flex flex-row flex-wrap">
                         {props.country[0].borders.map(border => (
-                            <button style={{marginRight: '0.5rem', backgroundColor: '#2B3945', border: '1px solid #2B3945', border: '8px', width:'100px', color: 'white',marginTop: '1rem',boxShadow: '1px 2px 22px 4px rgba(5, 18, 29,0.75)'}} key={border} value={border} onClick={props.showBorderDetails}>{border}</button>
+                            <button className="boder-name" style={props.color ? {backgroundColor: '#2B3945', border: '1px solid #2B3945', color: 'white'} : {backgroundColor: 'white', border: '1px solid white', color: 'black', boxShadow: '1px 2px 22px 4px rgba(227, 233, 238, 0.75)'}} key={border} value={border} onClick={props.showBorderDetails}>{border}</button>
                         ))}
                         </div>
                     </div>
